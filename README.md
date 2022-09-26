@@ -7,6 +7,35 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+##Telepítés
+Első lépésként létre kell hozni a .env fájl-t a .env.example alapján.
+
+Docker telepítése után a konténereket el kell indítani (első indításkor telepíti a konténtert)
+```bash
+docker-compose up -d
+```
+Ezután a következő paranccsal lehet belépni a konténerbe:
+```bash
+docker exec -it cab-php bash
+```
+
+A konténeren belül ki kell adni a dependency telepítéshez a következő parancsot:
+```bash
+composer install
+```
+
+Az adatbázis felépítéséhez migrációkat és seedereket használunk:
+```bash
+php artisan migrate --seed
+```
+
+(Resetelni az adatbázist a "php artisan migrate:fresh --seed" paranccsal lehet)
+
+Az elérhető végpontok listázhatóak a következő paranccsal:
+```bash
+php artisan route:list
+```
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

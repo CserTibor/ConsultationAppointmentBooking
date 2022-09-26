@@ -6,6 +6,3 @@ WORKDIR "./app"
 COPY . /app
 
 RUN chown -R application:application /app
-
-RUN chmod -R 775 /app/storage
-RUN chmod -R 775 /app/bootstrap/cache
