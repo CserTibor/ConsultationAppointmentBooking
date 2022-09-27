@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,10 +17,17 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::firstOrCreate([
-            'name' => 'Admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('admin'),
-        ]);
+        $user = User::firstOrCreate(
+            [
+                'email' => 'admin@admin.com',
+            ],
+            [
+                'name' => 'Admin',
+                'password' => Hash::make('admin'),
+            ]);
+
+        $roles = Role::all();
+
+        $user->roles()->sync($roles);
     }
 }

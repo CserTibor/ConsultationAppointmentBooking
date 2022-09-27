@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('user_appointments', function (Blueprint $table) {
             $table->unsignedBigInteger('appointment_id');
             $table->unsignedBigInteger('publisher_id');
-            $table->unsignedBigInteger('holder_id');
+            $table->unsignedBigInteger('holder_id')->nullable();
             $table->timestamps();
 
             $table->foreign('publisher_id')
@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->foreign('holder_id')
                 ->references('id')
                 ->on('users')
-                ->cascadeOnDelete();
+                ->nullOnDelete();
 
             $table->foreign('appointment_id')
                 ->references('id')
