@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -28,5 +29,22 @@ class UserService
         }
 
         return $users;
+    }
+
+    public function createUser(array $requestData): void
+    {
+
+        if (User::where('email', '=', $requestData['email'])->exists()) {
+            abort(422);
+        }
+
+        $user = User::create([
+            'email' => $requestData['email'],
+            'name' => $requestData['name'],
+            'mobile_number' => $requestData['mobileNumber'],
+            'password' => Hash::make($requestData['password']),
+        ]);
+
+        auth()->loginUsingId($user->id);
     }
 }

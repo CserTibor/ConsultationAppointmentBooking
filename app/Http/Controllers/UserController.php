@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RegistrationRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserAppointment;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
@@ -37,29 +39,34 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return View::make('registration-form');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param RegistrationRequest $request
      */
-    public function store(Request $request)
+    public function store(RegistrationRequest $request)
     {
-        //
+        $requestData = $request->only('name', 'email', 'mobileNumber', 'password');
+        $this->userService->createUser($requestData);
+
+        return redirect()->to('users/me');
+    }
+
+    public function me()
+    {
+        return View::make('user-profile', ['user' => auth()->user()]);
     }
 
     /**
      * Display the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -70,7 +77,6 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -80,9 +86,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
@@ -93,7 +98,6 @@ class UserController extends Controller
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
