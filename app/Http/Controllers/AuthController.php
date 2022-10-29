@@ -17,10 +17,10 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
-            return redirect()->to('users/me');
+            return View::make('user-profile');
         }
 
-        return redirect('login')->with(['message' => 'Sikertelen bejelentkezés!']);
+        return View::make('login');
     }
 
 
@@ -28,6 +28,6 @@ class AuthController extends Controller
     {
         auth()->logout();
 
-        return redirect('login');
+        return View::make('login');
     }
 }

@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
-use App\Models\Role;
 use App\Models\User;
-use App\Models\UserAppointment;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
@@ -47,17 +44,20 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
      * @param RegistrationRequest $request
+     * @return \Illuminate\Contracts\View\View
      */
     public function store(RegistrationRequest $request)
     {
         $requestData = $request->only('name', 'email', 'contact', 'code', 'password');
         $this->userService->createUser($requestData);
 
-        return redirect()->to('users/me');
+        return View::make('user-profile', ['user' => auth()->user()]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\View
+     */
     public function me()
     {
         return View::make('user-profile', ['user' => auth()->user()]);
