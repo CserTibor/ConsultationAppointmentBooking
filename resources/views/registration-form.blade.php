@@ -31,8 +31,11 @@
             <label for="name"><b>Név</b></label>
             <input type="text"  name="name" id="name" required>
 
-            <label for="mobileNumber"><b>Telefonszám</b></label>
-            <input type="text"  name="mobileNumber" id="mobileNumber" required>
+            <label for="contact"><b>Elérhetőség</b></label>
+            <input type="text"  name="contact" id="contact" required>
+
+            <label for="code"><b>Neptun</b></label>
+            <input type="text"  name="code" id="code" required>
 
             <label for="password"><b>Jelszó</b></label>
             <input type="password"  name="password" id="password" required>

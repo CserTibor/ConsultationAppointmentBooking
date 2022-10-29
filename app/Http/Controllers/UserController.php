@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function store(RegistrationRequest $request)
     {
-        $requestData = $request->only('name', 'email', 'mobileNumber', 'password');
+        $requestData = $request->only('name', 'email', 'contact', 'code', 'password');
         $this->userService->createUser($requestData);
 
         return redirect()->to('users/me');

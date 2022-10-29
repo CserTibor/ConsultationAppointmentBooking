@@ -41,7 +41,8 @@ class UserService
         $user = User::create([
             'email' => $requestData['email'],
             'name' => $requestData['name'],
-            'mobile_number' => $requestData['mobileNumber'],
+            'contact' => $requestData['contact'] ?? null,
+            'code' => $requestData['code'],
             'password' => Hash::make($requestData['password']),
         ]);
 

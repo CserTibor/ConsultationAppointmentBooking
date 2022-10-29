@@ -24,8 +24,9 @@
             <h1>Profil</h1>
             <h3>Név: {{$user->name}}</h3>
             <p>Email: {{$user->email}}</p>
-            @if(!is_null($user->mobile_number))
-                <p>Telefonszám: {{$user->mobile_number}}</p>
+            <p>Neptun: {{$user->code}}</p>
+            @if(!is_null($user->contact))
+                <p>Telefonszám: {{$user->contact}}</p>
             @endif
             <p>Jogosultságok:</p>
             <ul>
