@@ -19,6 +19,7 @@
 <body class="antialiased">
 
 <div style="margin-left: 50px">
+    @include('navbar')
     <form action="/users" method="POST">
         <div class="container">
             <h1>Profil</h1>

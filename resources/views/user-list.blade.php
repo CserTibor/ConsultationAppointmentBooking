@@ -18,6 +18,8 @@
 </head>
 <body class="antialiased">
 
+@include('navbar')
+
 <div style="margin-left: 50px">
     @foreach($users as $user)
         <h3>Név: {{$user->name}}</h3>
