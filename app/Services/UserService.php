@@ -14,7 +14,9 @@ class UserService
     {
         $user = auth()->user();
 
-        if ($user->isStudent()) {
+        if ($user->isAdmin()) {
+            $users = User::all();
+        } elseif ($user->isStudent()) {
             $users = User::whereHas('roles', function ($query) {
                 $query->where('slug', '=', Role::TEACHER);
             })->get();
@@ -24,11 +26,9 @@ class UserService
             })->orWhereHas('publishedAppointments', function ($query) use ($user) {
                 $query->where('publisher_id', '=', $user->id);
             })->get();
-        } else {
-            $users = User::all();
         }
 
-        return $users;
+        return $users ?? collect();
     }
 
     public function createUser(array $requestData): void

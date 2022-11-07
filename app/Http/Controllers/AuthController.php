@@ -17,7 +17,7 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
         if (auth()->attempt($credentials)) {
-            return View::make('user-profile');
+            return View::make('user-profile',['user' => auth()->user()]);
         }
 
         return View::make('login');

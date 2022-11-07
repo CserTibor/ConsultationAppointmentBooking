@@ -25,9 +25,19 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'password' => Hash::make('admin'),
             ]);
-
         $roles = Role::all();
-
         $user->roles()->sync($roles);
+
+        foreach (range(0, 9) as $i)
+            User::firstOrCreate(
+                [
+                    'email' => 'teszt' . $i . '@teszt.com'
+                ],
+                [
+                    'name' => 'Teszt' . $i,
+                    'code' => 'TESZT' . $i,
+                    'password' => Hash::make('teszt')
+                ]);
+
     }
 }

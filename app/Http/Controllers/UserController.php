@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -27,9 +28,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::first();
-        auth()->loginUsingId($user->id);
-
         return View::make('user-list', ['users' => $this->userService->getUserList()]);
     }
 
@@ -70,7 +68,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+
+        return View::make('user-detail', ['user' => $user, 'roles' => $roles]);
     }
 
     /**
@@ -80,7 +81,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+
+        return View::make('user-detail', ['user' => $user, 'roles' => $roles]);
     }
 
     /**
