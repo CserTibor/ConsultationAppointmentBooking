@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,10 @@ class Appointment extends Model
         'length'
     ];
 
+    public function getDateAttribute()
+    {
+        return Carbon::parse($this->attributes['date'])->format('Y.m.d H:m:s');
+    }
 
     public function publishers()
     {

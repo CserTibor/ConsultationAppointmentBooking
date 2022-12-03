@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 
@@ -15,10 +17,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $user = User::first();
-        auth()->loginUsingId($user->id);
-
-        return View::make('user-list', ['users' => $this->userService->getUserList()]);
+        $appointments = Appointment::with('publishers', 'holders')
+//            ->where('date', '>', Carbon::now())
+//            ->where('is_reserved', '=', false)
+            ->get();
+        return View::make('appointments-list', ['appointments' => $appointments]);
     }
 
     /**
@@ -28,7 +31,7 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**

@@ -95,16 +95,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     */
-    public function destroy($id)
-    {
-        //
+        $user = User::findOrFail($id);
+        $user->roles()->sync($request['roleIds']);
     }
 }
