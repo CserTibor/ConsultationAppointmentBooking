@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/appointments/create', [AppointmentController::class, 'create']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
     Route::post('/appointments/{appointment}/seize', [AppointmentController::class, 'seize']);
+    Route::post('/appointments/{appointment}/resign', [AppointmentController::class, 'resign']);
     Route::post('/appointments/{appointment}/delete', [AppointmentController::class, 'delete']);
 
     Route::get('/users', [UserController::class, 'index']);

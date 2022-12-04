@@ -4,95 +4,83 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppointmentCreateRequest;
 use App\Models\Appointment;
-use App\Models\Type;
-use App\Models\User;
-use App\Models\UserAppointment;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Repositories\AppointmentRepository;
+use App\Repositories\TypeRepository;
+use App\Services\AppointmentService;
 use Illuminate\Support\Facades\View;
 
 class AppointmentController extends Controller
 {
+    /**
+     * @var AppointmentService
+     */
+    private AppointmentService $appointmentService;
+    /**
+     * @var TypeRepository
+     */
+    private TypeRepository $typeRepository;
+    /**
+     * @var AppointmentRepository
+     */
+    private AppointmentRepository $appointmentRepository;
+
+    /**
+     * AppointmentController constructor.
+     * @param AppointmentService $appointmentService
+     * @param AppointmentRepository $appointmentRepository
+     * @param TypeRepository $typeRepository
+     */
+    public function __construct(
+        AppointmentService $appointmentService,
+        AppointmentRepository $appointmentRepository,
+        TypeRepository $typeRepository
+    )
+    {
+        $this->appointmentService = $appointmentService;
+        $this->typeRepository = $typeRepository;
+        $this->appointmentRepository = $appointmentRepository;
+    }
 
     public function index()
     {
-        $user = auth()->user();
-        $query = Appointment::with('publishers', 'holders')->where('date', '>', Carbon::now());
-
-        if ($user->isTeacher()) {
-            $query->whereHas('publishers', function ($query) use ($user) {
-                $query->where('publisher_id', '=', $user->id);
-            });
-        } elseif ($user->isStudent()) {
-            $query->where('is_reserved', '=', false);
-        }
-
-        $appointments = $query->get();
-
-        return View::make('appointments-list', ['appointments' => $appointments]);
+        return View::make('appointments-list', ['appointments' => $this->appointmentService->list()]);
     }
 
 
     public function create()
     {
-        $types = Type::all();
-        return View::make('appointment-create', ['types' => $types]);
+        return View::make('appointment-create', ['types' => $this->typeRepository->all()]);
     }
 
     public function store(AppointmentCreateRequest $request)
     {
         $requestData = $request->only('length', 'date', 'types');
-
-        $user = auth()->user();
-        $appointment = Appointment::create([
-            'length' => $requestData['length'],
-            'date' => Carbon::parse($requestData['date']),
-            'is_reserved' => false,
-        ]);
-
-        $appointment->types()->sync($requestData['types']);
-
-        UserAppointment::create([
-            'publisher_id' => $user->id,
-            'appointment_id' => $appointment->id,
-        ]);
-
+        $this->appointmentService->create($requestData);
 
         return redirect('/appointments');
     }
 
     public function seize(Appointment $appointment)
     {
-        $appointment->update(['is_reserved' => true]);
-        UserAppointment::where('appointment_id', '=', $id)->update(['holder_id' => auth()->id()]);
-
+        $this->appointmentService->seize($appointment);
         return redirect('/appointments');
     }
 
     public function myAppointments()
     {
-        $user = auth()->user();
-
-        $query = Appointment::query();
-        if ($user->isTeacher()) {
-            $query->whereHas('publishers', function ($query) use ($user) {
-                $query->where('publisher_id', '=', $user->id);
-            });
-        } elseif ($user->isStudent()) {
-            $query->whereHas('holders', function ($query) use ($user) {
-                $query->where('holder_id', '=', $user->id);
-            });
-        }
-
-        $appointments = $query->get();
-
-        return View::make('my-appointments-list', ['appointments' => $appointments]);
+        return View::make('my-appointments-list', ['appointments' => $this->appointmentService->myAppointments()]);
     }
 
     public function delete(Appointment $appointment)
     {
-        $appointment->delete();
+        $this->appointmentRepository->delete($appointment);
 
+        return redirect('/users/appointments');
+    }
+
+    public function resign(Appointment $appointment)
+    {
+        $this->appointmentService->resign($appointment);
         return redirect('/users/appointments');
     }
 }
