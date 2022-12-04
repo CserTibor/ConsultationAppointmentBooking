@@ -3,7 +3,9 @@
 
 namespace App\Services;
 
+use App\Mail\AppointmentDeletedEmail;
 use App\Models\Appointment;
+use App\Models\User;
 use App\Repositories\AppointmentRepository;
 use App\Repositories\UserAppointmentRepository;
 use Carbon\Carbon;
@@ -71,6 +73,15 @@ class AppointmentService
         ]);
     }
 
+    public function delete(Appointment $appointment)
+    {
+        $pivot = $this->appointmentRepository->getUserAppointment($appointment);
+        $user = User::findOrFail($pivot['holder_id']);
+        new AppointmentDeletedEmail($user);
+
+        $this->appointmentRepository->delete($appointment);
+    }
+
     /**
      * @param Appointment $appointment
      */
@@ -104,5 +115,9 @@ class AppointmentService
     {
         $appointment->update(['is_reserved' => false]);
         $this->appointmentRepository->removeHolder($appointment, auth()->id());
+
+        $pivot = $this->appointmentRepository->getUserAppointment($appointment);
+        $user = User::findOrFail($pivot['publisher_id']);
+        new AppointmentDeletedEmail($user);
     }
 }

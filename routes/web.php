@@ -4,6 +4,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Models\UserAppointment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/teszt',function(){
+    return dd(UserAppointment::select('publisher_id')
+        ->where('appointment_id', '=', 1)
+        ->first()
+        ->toArray());
+});
 
 
 Route::get('/login', [AuthController::class, 'show'])->name('login');

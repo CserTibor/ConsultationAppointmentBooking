@@ -112,6 +112,17 @@ class AppointmentRepository
 
     /**
      * @param Appointment $appointment
+     * @return array
+     */
+    public function getUserAppointment(Appointment $appointment): array
+    {
+        return UserAppointment::where('appointment_id', '=', $appointment->id)
+            ->first()
+            ->toArray();
+    }
+
+    /**
+     * @param Appointment $appointment
      */
     public function delete(Appointment $appointment): void
     {
