@@ -19,6 +19,7 @@
 <body class="antialiased">
 
 @include('navbar')
+<a href="appointments/create">Időpont kiírás</a>
 
 <div style="margin-left: 50px">
     @foreach($appointments as $appointment)

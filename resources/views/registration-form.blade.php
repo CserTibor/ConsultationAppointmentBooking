@@ -29,16 +29,16 @@
             <input type="text" name="email" id="email" required>
 
             <label for="name"><b>Név</b></label>
-            <input type="text"  name="name" id="name" required>
+            <input type="text" name="name" id="name" required>
 
             <label for="contact"><b>Elérhetőség</b></label>
-            <input type="text"  name="contact" id="contact" required>
+            <input type="text" name="contact" id="contact" required>
 
             <label for="code"><b>Neptun</b></label>
-            <input type="text"  name="code" id="code" required>
+            <input type="text" name="code" id="code" required>
 
             <label for="password"><b>Jelszó</b></label>
-            <input type="password"  name="password" id="password" required>
+            <input type="password" name="password" id="password" required>
 
             <label for="password_confirmation"><b>Jelszó megerősítés</b></label>
             <input type="password" name="password_confirmation" id="password_confirmation"
@@ -49,7 +49,7 @@
         </div>
 
         <div>
-            <p>Regisztráltál már? Jelentkezz be!<a href="#">Bejelentkezés</a>.</p>
+            <p>Regisztráltál már? Jelentkezz be!<a href="/login">Bejelentkezés</a>.</p>
         </div>
     </form>
 </div>

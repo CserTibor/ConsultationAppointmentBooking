@@ -23,6 +23,11 @@
 <div style="margin-left: 50px">
     @foreach($users as $user)
         <h3>Név: {{$user->name}}</h3>
+        @if(auth()->user()->isAdmin())
+            <a href="users/{{$user->id}}">
+                Szerkesztés
+            </a>
+        @endif
         <p>Email: {{$user->email}}</p>
         <p>Neptun: {{$user->code}}</p>
         @if(!is_null($user->contact))

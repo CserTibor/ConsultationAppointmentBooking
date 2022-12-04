@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\UserService;
@@ -90,12 +91,16 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param RoleRequest $request
      * @param int $id
      */
-    public function update(Request $request, $id)
+    public function addRole(RoleRequest $request, int $id)
     {
         $user = User::findOrFail($id);
-        $user->roles()->sync($request['roleIds']);
+
+        $requestData = $request->only('roleId');
+        $user->roles()->sync($requestData['roleId']);
+
+        return redirect('/users/' . $id);
     }
 }

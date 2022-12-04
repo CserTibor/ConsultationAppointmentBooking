@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AppointmentCreateRequest;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\UserAppointment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -24,25 +26,29 @@ class AppointmentController extends Controller
         return View::make('appointments-list', ['appointments' => $appointments]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-
+        return View::make('appointment-create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(AppointmentCreateRequest $request)
     {
-        //
+        $requestData = $request->only('length', 'date');
+
+        $user = auth()->user();
+        $appointment = Appointment::create([
+            'length' => $requestData['length'],
+            'date' => Carbon::parse($requestData['date']),
+            'is_reserved' => false,
+        ]);
+        UserAppointment::create([
+            'publisher_id' => $user->id,
+            'appointment_id' => $appointment->id,
+        ]);
+
+        return redirect('/appointments');
     }
 
     /**

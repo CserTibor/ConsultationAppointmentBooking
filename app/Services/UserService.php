@@ -33,7 +33,6 @@ class UserService
 
     public function createUser(array $requestData): void
     {
-
         if (User::where('email', '=', $requestData['email'])->exists()) {
             abort(422);
         }
@@ -45,6 +44,9 @@ class UserService
             'code' => $requestData['code'],
             'password' => Hash::make($requestData['password']),
         ]);
+
+        $studentRole = Role::where('slug', '=', 'student')->first();
+        $user->roles()->sync($studentRole);
 
         auth()->loginUsingId($user->id);
     }
