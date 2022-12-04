@@ -18,14 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/teszt',function(){
-    return dd(UserAppointment::select('publisher_id')
-        ->where('appointment_id', '=', 1)
-        ->first()
-        ->toArray());
-});
-
-
 Route::get('/login', [AuthController::class, 'show'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/users/create', [UserController::class, 'create']);
