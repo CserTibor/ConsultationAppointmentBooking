@@ -20,7 +20,7 @@ class AppointmentSeeder extends Seeder
     {
         $appointment = Appointment::firstOrCreate([
             'is_reserved' => false,
-            'date' => Carbon::now(),
+            'date' => Carbon::now()->addMonths(rand(3, 5)),
             'length' => 15
         ]);
 

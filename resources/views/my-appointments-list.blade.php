@@ -24,10 +24,12 @@
 <div style="margin-left: 50px">
     @foreach($appointments as $appointment)
         <h3>Időpont: {{$appointment->date}}</h3>
-        <form action="/appointments/{{$appointment->id}}/seize" method="POST">
+        {{--        @if(auth()->user()->isTeacher())--}}
+        <form action="/appointments/{{$appointment->id}}/delete" method="POST">
             @csrf
-            <button type="submit">Lefoglalom</button>
+            <button type="submit">Törlés</button>
         </form>
+        {{--        @endif--}}
         <p>Időtartam: {{$appointment->length}} perc</p>
         <p>Típus: </p>
         <ul>

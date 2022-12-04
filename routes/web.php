@@ -28,16 +28,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'show']);
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/users', [UserController::class, 'index']);
-    Route::get('/users/me', [UserController::class, 'me']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::delete('/users/{id}', [UserController::class, 'destroy']);
-    Route::get('/users/{id}/edit', [UserController::class, 'edit']);
-    Route::post('/users/{id}/roles', [UserController::class, 'addRole']);
-
+    Route::get('/users/appointments', [AppointmentController::class, 'myAppointments']);
     Route::get('/appointments', [AppointmentController::class, 'index']);
     Route::get('/appointments/create', [AppointmentController::class, 'create']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::post('/appointments/{id}/seize', [AppointmentController::class, 'seize']);
+    Route::post('/appointments/{id}/delete', [AppointmentController::class, 'delete']);
+
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/me', [UserController::class, 'me']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
+    Route::get('/users/{id}/edit', [UserController::class, 'edit']);
+    Route::post('/users/{id}/roles', [UserController::class, 'addRole']);
 });
 
 

@@ -8,6 +8,7 @@
         @else
             <li><a href="{{ url('/users') }}">Felhasználók</a></li>
             <li><a href="{{ url('/appointments') }}">Időpontok</a></li>
+            <li><a href="{{ url('/users/appointments') }}">Időpontjaim</a></li>
             <li class="dropdown">
                 <a href="{{url("/users/me")}}" class="dropdown-toggle" data-toggle="dropdown" role="button"
                    aria-expanded="false">

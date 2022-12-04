@@ -31,6 +31,14 @@
 
             <label for="length"><b>Időtartam</b></label>
             <input type="number" name="length" id="length" min="5" placeholder="min: 5 perc" required>
+
+            <label for="types[]"><b>Típus</b>
+                <select name="types[]">
+                    @foreach($types as $type)
+                        <option value="{{$type->id}}">{{$type->name}}</option>
+                    @endforeach
+                </select>
+            </label>
             <hr>
 
             <button type="submit">Létrehozás</button>

@@ -25,7 +25,9 @@ class AppointmentCreateRequest extends FormRequest
     {
         return [
             'date' => 'required|string',
-            'length' => 'required|integer|min:5'
+            'length' => 'required|integer|min:5',
+            'types' => 'required|array',
+            'types.*' => 'required|integer|exists:types,id'
         ];
     }
 }
