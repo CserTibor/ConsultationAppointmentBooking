@@ -32,14 +32,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/appointments', [AppointmentController::class, 'index']);
     Route::get('/appointments/create', [AppointmentController::class, 'create']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
-    Route::post('/appointments/{id}/seize', [AppointmentController::class, 'seize']);
-    Route::post('/appointments/{id}/delete', [AppointmentController::class, 'delete']);
+    Route::post('/appointments/{appointment}/seize', [AppointmentController::class, 'seize']);
+    Route::post('/appointments/{appointment}/delete', [AppointmentController::class, 'delete']);
 
     Route::get('/users', [UserController::class, 'index']);
     Route::get('/users/me', [UserController::class, 'me']);
-    Route::get('/users/{id}', [UserController::class, 'show']);
-    Route::get('/users/{id}/edit', [UserController::class, 'edit']);
-    Route::post('/users/{id}/roles', [UserController::class, 'addRole']);
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    Route::post('/users/{user}/roles', [UserController::class, 'addRole']);
 });
 
 

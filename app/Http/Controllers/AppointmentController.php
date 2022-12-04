@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\View;
 class AppointmentController extends Controller
 {
 
-    /**
-     * Display a listing of the resource.
-     *
-     */
     public function index()
     {
         $user = auth()->user();
@@ -43,7 +39,6 @@ class AppointmentController extends Controller
         return View::make('appointment-create', ['types' => $types]);
     }
 
-
     public function store(AppointmentCreateRequest $request)
     {
         $requestData = $request->only('length', 'date', 'types');
@@ -66,9 +61,8 @@ class AppointmentController extends Controller
         return redirect('/appointments');
     }
 
-    public function seize($id)
+    public function seize(Appointment $appointment)
     {
-        $appointment = Appointment::findOrFail($id);
         $appointment->update(['is_reserved' => true]);
         UserAppointment::where('appointment_id', '=', $id)->update(['holder_id' => auth()->id()]);
 
@@ -95,9 +89,9 @@ class AppointmentController extends Controller
         return View::make('my-appointments-list', ['appointments' => $appointments]);
     }
 
-    public function delete($id)
+    public function delete(Appointment $appointment)
     {
-        $appointment = Appointment::where('id', '=', $id)->delete();
+        $appointment->delete();
 
         return redirect('/users/appointments');
     }

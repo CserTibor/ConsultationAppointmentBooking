@@ -6,6 +6,8 @@ use App\Http\Requests\RegistrationRequest;
 use App\Http\Requests\RoleRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Repositories\RoleRepository;
+use App\Repositories\UserRepository;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -13,94 +15,71 @@ use Illuminate\Support\Facades\View;
 class UserController extends Controller
 {
 
-    /**
-     * @var UserService
-     */
     private UserService $userService;
+    /**
+     * @var RoleRepository
+     */
+    private RoleRepository $roleRepository;
+    /**
+     * @var UserRepository
+     */
+    private UserRepository $userRepository;
 
-    public function __construct(UserService $userService)
+    /**
+     * UserController constructor.
+     * @param UserService $userService
+     * @param UserRepository $userRepository
+     * @param RoleRepository $roleRepository
+     */
+    public function __construct(
+        UserService $userService,
+        UserRepository $userRepository,
+        RoleRepository $roleRepository
+    )
     {
         $this->userService = $userService;
+        $this->roleRepository = $roleRepository;
+        $this->userRepository = $userRepository;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     */
     public function index()
     {
         return View::make('user-list', ['users' => $this->userService->getUserList()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     */
     public function create()
     {
         return View::make('registration-form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param RegistrationRequest $request
-     * @return \Illuminate\Contracts\View\View
-     */
     public function store(RegistrationRequest $request)
     {
         $requestData = $request->only('name', 'email', 'contact', 'code', 'password');
         $this->userService->createUser($requestData);
 
-        return View::make('user-profile', ['user' => auth()->user()]);
+        return redirect('/users/me');
     }
 
-    /**
-     * @return \Illuminate\Contracts\View\View
-     */
     public function me()
     {
         return View::make('user-profile', ['user' => auth()->user()]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::findOrFail($id);
-        $roles = Role::all();
-
-        return View::make('user-detail', ['user' => $user, 'roles' => $roles]);
+        return View::make('user-detail', ['user' => $user, 'roles' => $user->roles]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     */
-    public function edit($id)
+    public function edit(User $user)
     {
-        $user = User::findOrFail($id);
-        $roles = Role::all();
-
-        return View::make('user-detail', ['user' => $user, 'roles' => $roles]);
+        return View::make('user-detail', ['user' => $user, 'roles' => $this->roleRepository->all()]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param RoleRequest $request
-     * @param int $id
-     */
-    public function addRole(RoleRequest $request, int $id)
+    public function addRole(RoleRequest $request, User $user)
     {
-        $user = User::findOrFail($id);
-
         $requestData = $request->only('roleId');
-        $user->roles()->sync($requestData['roleId']);
+        $this->userRepository->assignRoles($user, $requestData['roleId']);
 
-        return redirect('/users/' . $id);
+        return redirect('/users/' . $user->id);
     }
 }
