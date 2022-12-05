@@ -212,4 +212,7 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    'title_hu' => 'Egyetemi konzultációs időpontfoglaló rendszer',
+
 ];

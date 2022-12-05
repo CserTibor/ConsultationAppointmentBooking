@@ -1,40 +1,47 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @include('header')
 
-    <title>SZE Időpontfoglaló alkalmazás</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" crossorigin="anonymous"></script>
-
-    <!-- Styles -->
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-    <!-- Latest compiled and minified JavaScript -->
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <title><?= $app['config']['app.title_hu']; ?></title>
 </head>
 <body class="antialiased">
 
-<div style="margin-left: 50px">
 
     @include('navbar')
-    <div class="container">
-        <h1>Időpontfoglalás</h1>
-    </div>
 
-</div>
+    <!-- Header - set the background image for the header in the line below-->
+    <header class="py-5 bg-image-full firstPageHeader">
+        <div class="text-center my-5">
+            <img class="img-fluid mb-4" src="{{ asset('img/tuition2.png') }}" alt="Időpontfoglaló" />
+            <h1 class="text-black fs-3 fw-bolder"><?= $app['config']['app.title_hu']; ?></h1>
+            <p class="text-black mb-0">Kérjük, jelentkezzen be a folytatáshoz.</p>
+            <p class="mt-10">
+                    <a href="{{ url('/login') }}"><button class="myButton">
+                            Bejelentkezés
+                        </button></a>
+                        &nbsp; 
+                    <a href="{{ url('/users/create') }}"><button class="myButton">
+                            Regisztráció
+                        </button></a>
+                    </p>
+                </p>
+        </div>
+    </header>
+
+    <!-- Content section-->
+    <section class="py-5">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h2>Konzultációs időpontok egy helyen</h2>
+                    <p class="lead">Egyszerű, egységesített kezelőfelület a hallgatók és előadók közötti kapcsolattartáshoz.</p>
+                    <p class="mb-0">&nbsp;</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @include('footer')
 </body>
 </html>

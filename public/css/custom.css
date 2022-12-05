@@ -1,0 +1,56 @@
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.firstPageHeader {
+  background: url('/img/clouds2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar-nav {
+    background:#0066A4; /* SZE color code */
+    color:white;
+    width:100%;
+    text-align:right;
+}
+.navbar-nav a {
+    color:white;
+}
+.mainSection {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding:20px;
+
+}
+#mainSectionLogo {
+    width:100%;
+}
+
+button {
+    background:#0066A4;
+    color:white;
+    border-radius: 5px;
+    padding:10px;
+    margin:5px;
+    border: 0;
+}
+
+.myButton:hover {
+    background:#2288c6;
+}
+.valign-middle {
+    vertical-align:middle;
+  }
+
+.navbar-dark {
+  background:#0066A4 !important;
+}
+
+.userLogin input {
+  width: 400px;
+  background-color:#ddd;
+  border:0;
+  padding:10px;
+  clear:both;
+  width:100%;
+}
