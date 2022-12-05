@@ -13,6 +13,7 @@
                         @else
                             <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Felhasználók</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('/appointments') }}">Időpontok</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ url('/users/appointments') }}">Időpontjaim</a></li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="{{url("/users/me")}}" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-expanded="false">

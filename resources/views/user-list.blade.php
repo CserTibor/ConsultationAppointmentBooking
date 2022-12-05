@@ -7,7 +7,6 @@
 </head>
 <body class="antialiased">
 
-
  @include('navbar')
 
  <section class="py-5">
@@ -16,6 +15,11 @@
             <div>
                 @foreach($users as $user)
                     <h3>Név: {{$user->name}}</h3>
+                     @if(auth()->user()->isAdmin())
+                        <a href="users/{{$user->id}}">
+                            Szerkesztés
+                        </a>
+                    @endif
                     <p>Email: {{$user->email}}</p>
                     <p>Neptun: {{$user->code}}</p>
                     @if(!is_null($user->contact))
@@ -31,6 +35,8 @@
             </div>
         </div>
 </section>
+
     @include('footer')
+
 </body>
 </html>

@@ -24,10 +24,25 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Admin',
                 'password' => Hash::make('admin'),
+                'code' => 'ADMIN1'
             ]);
 
-        $roles = Role::all();
+        $role = Role::where('slug', '=', 'admin')->first();
+        $user->roles()->sync($role);
 
-        $user->roles()->sync($roles);
+        foreach (range(0, 9) as $i)
+            $user = User::firstOrCreate(
+                [
+                    'email' => 'teszt' . $i . '@teszt.com'
+                ],
+                [
+                    'name' => 'Teszt' . $i,
+                    'code' => 'TESZT' . $i,
+                    'password' => Hash::make('teszt')
+                ]);
+
+        $studentRole = Role::where('slug', '=', 'student')->first();
+        $user->roles()->sync($studentRole);
+
     }
 }

@@ -36,7 +36,7 @@
 
                             <p>
                                 <label for="code"><b>Neptun</b></label>
-                                <input type="text"  name="code" id="code" required>
+                                <input type="text" name="code" id="code" required>
                             </p>
 
                             <p>
@@ -55,7 +55,7 @@
                         </div>
 
                         <div>
-                            <p>Regisztráltál már? Itt tudsz bejelentkezni: <a href="#">Bejelentkezés</a>.</p>
+                            <p>Regisztráltál már? Itt tudsz bejelentkezni: <a href="/login">Bejelentkezés</a>.</p>
                         </div>
                     </form>
                 </div>
@@ -63,7 +63,7 @@
     </div>
 </section>
 
-
     @include('footer')
+
 </body>
 </html>

@@ -16,11 +16,11 @@ class AuthController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
-        if (auth()->attempt($credentials)) {
-            return View::make('user-profile');
+        if (!auth()->attempt($credentials)) {
+            return View::make('login');
         }
 
-        return View::make('login');
+        return View::make('user-profile', ['user' => auth()->user()]);
     }
 
 

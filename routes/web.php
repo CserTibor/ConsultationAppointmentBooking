@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Models\UserAppointment;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,20 +18,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-
-Route::get('/users', [UserController::class, 'index']);
+Route::get('/login', [AuthController::class, 'show'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
 Route::get('/users/create', [UserController::class, 'create']);
 Route::post('/users', [UserController::class, 'store']);
-Route::get('/users/me', [UserController::class, 'me']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::get('/users/{id}/edit', [UserController::class, 'edit']);
-Route::put('/users/{id}/edit', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
-Route::get('/login', [AuthController::class, 'show']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', [DashboardController::class, 'show']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/users/appointments', [AppointmentController::class, 'myAppointments']);
+    Route::get('/appointments', [AppointmentController::class, 'index']);
+    Route::get('/appointments/create', [AppointmentController::class, 'create']);
+    Route::post('/appointments', [AppointmentController::class, 'store']);
+    Route::post('/appointments/{appointment}/seize', [AppointmentController::class, 'seize']);
+    Route::post('/appointments/{appointment}/resign', [AppointmentController::class, 'resign']);
+    Route::post('/appointments/{appointment}/delete', [AppointmentController::class, 'delete']);
+
+    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/users/me', [UserController::class, 'me']);
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+    Route::post('/users/{user}/roles', [UserController::class, 'addRole']);
+});
+
 

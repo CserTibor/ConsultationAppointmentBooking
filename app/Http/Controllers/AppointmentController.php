@@ -2,88 +2,85 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\AppointmentCreateRequest;
+use App\Models\Appointment;
+use App\Repositories\AppointmentRepository;
+use App\Repositories\TypeRepository;
+use App\Services\AppointmentService;
 use Illuminate\Support\Facades\View;
 
 class AppointmentController extends Controller
 {
+    /**
+     * @var AppointmentService
+     */
+    private AppointmentService $appointmentService;
+    /**
+     * @var TypeRepository
+     */
+    private TypeRepository $typeRepository;
+    /**
+     * @var AppointmentRepository
+     */
+    private AppointmentRepository $appointmentRepository;
 
     /**
-     * Display a listing of the resource.
-     *
+     * AppointmentController constructor.
+     * @param AppointmentService $appointmentService
+     * @param AppointmentRepository $appointmentRepository
+     * @param TypeRepository $typeRepository
      */
+    public function __construct(
+        AppointmentService $appointmentService,
+        AppointmentRepository $appointmentRepository,
+        TypeRepository $typeRepository
+    )
+    {
+        $this->appointmentService = $appointmentService;
+        $this->typeRepository = $typeRepository;
+        $this->appointmentRepository = $appointmentRepository;
+    }
+
     public function index()
     {
-        $user = User::first();
-        auth()->loginUsingId($user->id);
-
-        return View::make('user-list', ['users' => $this->userService->getUserList()]);
+        return View::make('appointments-list', ['appointments' => $this->appointmentService->list()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        return View::make('appointment-create', ['types' => $this->typeRepository->all()]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(AppointmentCreateRequest $request)
     {
-        //
+        $requestData = $request->only('length', 'date', 'types');
+        $this->appointmentService->create($requestData);
+
+        return redirect('/appointments');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function seize(Appointment $appointment)
     {
-        //
+        $this->appointmentService->seize($appointment);
+        return redirect('/appointments');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function myAppointments()
     {
-        //
+        return View::make('my-appointments-list', ['appointments' => $this->appointmentService->myAppointments()]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function delete(Appointment $appointment)
     {
-        //
+        $this->appointmentRepository->delete($appointment);
+
+        return redirect('/users/appointments');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function resign(Appointment $appointment)
     {
-        //
+        $this->appointmentService->resign($appointment);
+        return redirect('/users/appointments');
     }
 }
