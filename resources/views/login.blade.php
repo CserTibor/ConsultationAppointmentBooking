@@ -1,44 +1,54 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @include('header')
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
+    <title><?= $app['config']['app.title_hu']; ?></title>
 </head>
 <body class="antialiased">
 
-<div style="margin-left: 50px">
-    <div style="margin-left: 50px">
-        <form action="/login" method="POST">
-            <div class="container">
-                <h1>Időpontfoglaló Alkalmazás</h1>
-                <p>Kérlek jelentkezz be!</p>
-                <hr>
 
-                <label for="email"><b>Email</b></label>
-                <input type="text" name="email" id="email" required>
+ @include('navbar')
 
-                <label for="password"><b>Jelszó</b></label>
-                <input type="password" name="password" id="password" required>
+ <section class="py-5">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form action="/login" method="POST" class="userLogin">
+                        <div class="container">
+                            <h1 class="mb-2"><?= $app['config']['app.title_hu']; ?></h1>
+                            <h2 class="mb-2">Bejelentkezés</h2>
 
-                <button type="submit">Bejelentkezés</button>
+                            <p>Bejelentkezési adatok:</p>                                    
 
+                            <p>
+                                <label for="email"><b>Email:</b></label>
+                                <input type="text" name="email" id="email" required>
+                            </p>
+
+
+                            <p>
+                                <label for="password"><b>Jelszó:</b></label>
+                                <input type="password" name="password" id="password" required>
+                            </p>
+
+                            <p>
+                                <button type="submit">Bejelentkezés</button>
+                            </p>
+
+                        </div>
+                    </form>
+                <p>
+                    Még nem regisztráltál?  
+                    <button type="button" onclick="window.location='{{ url('/users/create') }}'">Regisztráció</button>
+                </p>
+                </div>
             </div>
-        </form>
-    <p>Még nem regisztráltál?</p>
-    <button type="button" onclick="window.location='{{ url('/users/create') }}'">Regisztráció</button>
-    </div>
-</div>
+        </div>
+    </section>
+
+
+
+    @include('footer')
 </body>
 </html>

@@ -1,57 +1,69 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @include('header')
 
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <style>
-        body {
-            font-family: 'Nunito', sans-serif;
-        }
-    </style>
+    <title><?= $app['config']['app.title_hu']; ?></title>
 </head>
 <body class="antialiased">
 
-<div style="margin-left: 50px">
-    <form action="/users" method="POST">
-        <div class="container">
-            <h1>Regisztráció</h1>
-            <p>Kérlek töltsd ki az alábbi mezőket!</p>
-            <hr>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" name="email" id="email" required>
+ @include('navbar')
 
-            <label for="name"><b>Név</b></label>
-            <input type="text" name="name" id="name" required>
+ <section class="py-5">
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <form action="/users" method="POST" class="userLogin">
+                        <div class="container">
+                            <h1 class="mb-2"><?= $app['config']['app.title_hu']; ?></h1>
+                            <h2 class="mb-2">Regisztráció</h2>
 
-            <label for="contact"><b>Elérhetőség</b></label>
-            <input type="text" name="contact" id="contact" required>
+                            <p>
+                                <label for="email"><b>Email</b></label>
+                                <input type="text" name="email" id="email" required>
+                            </p>
 
-            <label for="code"><b>Neptun</b></label>
-            <input type="text" name="code" id="code" required>
+                            <p>
+                                <label for="name"><b>Név</b></label>
+                                <input type="text"  name="name" id="name" required>
+                            </p>
 
-            <label for="password"><b>Jelszó</b></label>
-            <input type="password" name="password" id="password" required>
+                            <p>
+                                <label for="contact"><b>Elérhetőség</b></label>
+                                <input type="text"  name="contact" id="contact" required>
+                            </p>
 
-            <label for="password_confirmation"><b>Jelszó megerősítés</b></label>
-            <input type="password" name="password_confirmation" id="password_confirmation"
-                   required>
-            <hr>
+                            <p>
+                                <label for="code"><b>Neptun</b></label>
+                                <input type="text" name="code" id="code" required>
+                            </p>
 
-            <button type="submit">Regisztráció</button>
-        </div>
+                            <p>
+                                <label for="password"><b>Jelszó</b></label>
+                                <input type="password"  name="password" id="password" required>
+                            </p>
 
-        <div>
-            <p>Regisztráltál már? Jelentkezz be!<a href="/login">Bejelentkezés</a>.</p>
-        </div>
-    </form>
-</div>
+                            <p>
+                                <label for="password_confirmation"><b>Jelszó megerősítés</b></label>
+                                <input type="password" name="password_confirmation" id="password_confirmation" required>
+                            </p>
+
+                            <p>
+                                <button type="submit">Regisztráció</button>
+                            </p>
+                        </div>
+
+                        <div>
+                            <p>Regisztráltál már? Itt tudsz bejelentkezni: <a href="/login">Bejelentkezés</a>.</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</section>
+
+    @include('footer')
+
 </body>
 </html>
