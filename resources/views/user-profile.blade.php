@@ -7,31 +7,90 @@
 </head>
 <body class="antialiased">
 
-
  @include('navbar')
 
  <section class="py-5">
         <div class="container my-5">
 
             <div style="margin-left: 50px">
-                @include('navbar')
-                <form action="/users" method="POST">
-                    <div class="container">
-                        <h1>Profil</h1>
-                        <h3>Név: {{$user->name}}</h3>
-                        <p>Email: {{$user->email}}</p>
-                        <p>Neptun: {{$user->code}}</p>
-                        @if(!is_null($user->contact))
-                            <p>Telefonszám: {{$user->contact}}</p>
-                        @endif
-                        <p>Jogosultságok:</p>
-                        <ul>
-                            @foreach($user->roles as $role)
-                                <li>{{$role->name}}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </form>
+                <div class="container">
+
+                    <h1>Profil</h1>
+
+                    <div class="row">
+                        <div class="col-3">
+                          <img src="{{ asset('img/profile.png') }}" style="height:250px" alt="User Profile" />
+                        </div>
+                        <div class="col-9">
+                            <h3>{{$user->name}}</h3>
+
+                            <p> &nbsp; </p>
+
+                            <div class="row">
+                                <div class="col-3">
+                                  Email:
+                                </div>
+                                <div class="col-9"> {{$user->email}}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-3">
+                                  Neptun-kód:
+                                </div>
+                                <div class="col-9"> {{$user->code}}
+                                </div>
+                            </div>
+
+                            @if(!is_null($user->contact))
+                            <div class="row">
+                                <div class="col-3">
+                                  Elérhetőség:
+                                </div>
+                                <div class="col-9"> {{$user->contact}}
+                                </div>
+                            </div>
+                            @endif
+
+                            <div class="row">
+                                <div class="col-3">
+                                  Jogosultságok:
+                                </div>
+                                <div class="col-9"> 
+
+
+                                    @php
+
+                                        function getRoleIcon($role) {
+
+                                            $retval = "";
+
+                                            switch($role) {
+                                                case 'teacher':
+                                                    $retval =  ' Tanár ';
+                                                    break;
+                                                case 'student':
+                                                    return ' Diák ';
+                                                    break;
+                                                default:
+                                                    return $role;
+                                                    break;
+                                            }
+                                        }
+
+                                        foreach ($user->roles as $role) {
+                                            echo getRoleIcon($role->name);
+                                        }
+
+                                    @endphp
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                      </div>
+                </div>
+            
             </div>
         </section>
     @include('footer')

@@ -14,6 +14,11 @@
         <div class="container my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
+
+                    <img class="img-fluid mb-4" src="{{ asset('img/tuition2.png') }}" alt="Időpontfoglaló" />
+
+                </div>
+                <div class="col-lg-6">
                     <form action="/login" method="POST" class="userLogin">
                         <div class="container">
                             <h1 class="mb-2"><?= $app['config']['app.title_hu']; ?></h1>
