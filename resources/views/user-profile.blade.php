@@ -66,17 +66,16 @@
                                             $retval = "";
 
                                             switch($role) {
-                                                case 'Role1':
+                                                case 'teacher':
                                                     $retval =  ' Tanár ';
                                                     break;
-                                                case 'Role2':
+                                                case 'student':
                                                     return ' Diák ';
                                                     break;
                                                 default:
                                                     return $role;
                                                     break;
                                             }
-
                                         }
 
                                         foreach ($user->roles as $role) {

@@ -46,7 +46,7 @@ button {
   background:#0066A4 !important;
 }
 
-.userLogin input {
+.userLogin input, input[type=text], input[type=password], input[type=number] {
   width: 400px;
   background-color:#ddd;
   border:0;
