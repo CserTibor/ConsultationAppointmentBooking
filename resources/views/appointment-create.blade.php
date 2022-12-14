@@ -9,32 +9,57 @@
 
 @include('navbar')
 
-<div style="margin-left: 50px">
-    <form action="/appointments" method="POST">
-        @csrf
-        <div class="container">
-            <h1>Időpont kiírás</h1>
-            <p>Kérlek töltsd ki az alábbi mezőket!</p>
-            <hr>
+ <section class="py-5">
+        <div class="container my-5">
+            <h1>Időpont kiírása</h1>
 
-            <label for="date"><b>Időpont</b></label>
-            <input type="datetime-local" name="date" id="date" min="{{now()->toDateString()}}" required>
+            <form action="/appointments" method="POST">
+                @csrf
+                <div class="container">
 
-            <label for="length"><b>Időtartam</b></label>
-            <input type="number" name="length" id="length" min="5" placeholder="min: 5 perc" required>
+                    <div class="row form-group">
+                        <div class="col-3">
+                          <label for="date"><b>Időpont</b></label>
+                        </div>
+                        <div class="col-9">
+                            <input type="datetime-local" name="date" id="date" min="{{now()->toDateString()}}" required="true" />
+                        </div>
+                        <br>&nbsp;
+                    </div>
 
-            <label for="types[]"><b>Típus</b>
-                <select name="types[]">
-                    @foreach($types as $type)
-                        <option value="{{$type->id}}">{{$type->name}}</option>
-                    @endforeach
-                </select>
-            </label>
-            <hr>
+                    <div class="row form-group">
+                        <div class="col-3">
+                          <label for="length"><b>Időtartam</b></label>
+                        </div>
+                        <div class="col-9">
+                            <input type="number" name="length" id="length" min="5" placeholder="min: 5 perc" required="true" />
+                        </div>
+                        <br>&nbsp;
+                    </div>
 
-            <button type="submit">Létrehozás</button>
+                    <div class="row form-group">
+                        <div class="col-3">
+                          <label for="length"><b>Típus</b></label>
+                        </div>
+                        <div class="col-9">
+                            <select name="types[]">
+                                @foreach($types as $type)
+                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <br>&nbsp;
+                    </div>
+
+                    <p>
+                        &nbsp;
+                    </p>
+
+                    <button type="submit">Létrehozás</button>
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </section>
+
 </body>
 </html>
