@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return View::make('user-list', ['users' => $this->userService->getUserList()]);
+        return View::make('user-list', ['users' => $this->userService->getUserList(), 'isAdmin' => auth()->user()->isAdmin()]);
     }
 
     public function create()
