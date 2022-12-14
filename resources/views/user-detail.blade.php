@@ -7,6 +7,7 @@
 </head>
 <body class="antialiased">
 
+
 @include('navbar')
 
 <div style="margin-left: 50px">

@@ -16,7 +16,7 @@
                 <div class="col-lg-6">
                     <form action="/users" method="POST" class="userLogin">
                         <div class="container">
-                            <h1 class="mb-2"><?= $app['config']['app.title_hu']; ?></h1>
+                            <h1><?= $app['config']['app.title_hu']; ?></h1>
                             <h2 class="mb-2">Regisztráció</h2>
 
                             <p>
