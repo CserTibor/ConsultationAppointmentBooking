@@ -58,3 +58,7 @@ button {
 h1 {
   margin-bottom:25px;
 }
+
+ul {
+    list-style-type: none;
+}
