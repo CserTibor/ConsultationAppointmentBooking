@@ -14,16 +14,19 @@
                             <li class="nav-item"><a class="nav-link" href="{{ url('/users') }}">Felhasználók</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('/appointments') }}">Időpontok</a></li>
                             <li class="nav-item"><a class="nav-link" href="{{ url('/users/appointments') }}">Időpontjaim</a></li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="{{url("/users/me")}}" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-expanded="false">
-                                    {{ auth()->user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <ul class="nav-item dropdown-menu" role="menu">
-                                    <li><a class="nav-link" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Kijelentkezés</a></li>
-                                </ul>
+                            <li class="nav-item dropdown">
+                                
+                                  <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ auth()->user()->name }}
+                                  </a>
+                                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item text-dark" href="{{ url('/user/me') }}">Profil</a></li>
+                                    <li><a class="dropdown-item text-dark" href="{{ url('/logout') }}">Kijelentkezés</a></li>
+                                  </ul>
+                                
                             </li>
+
                         @endif
                     </ul>
                 </div>
