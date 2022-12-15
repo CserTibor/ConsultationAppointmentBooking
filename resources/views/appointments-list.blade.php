@@ -17,15 +17,9 @@
 
                 <a href="appointments/create">Időpont kiírása</a>
 
-                @php
+                <p>&nbsp;</p>
 
-                    if(count($appointments)==0) {
-                        echo "<p>Nincsenek megjeleníthető időpontok.</p>";
-                    }
-
-                @endphp
-
-                <table class="table table-striped" id="appoitmentsList">
+                <table class="table table-striped" id="appointmentList">
                   <thead>
                     <tr>
                       <th scope="col">Oktató(k)</th>
@@ -75,6 +69,9 @@
                                         foreach ($appointment->publishers as $pub) {
                                             if($pub->id == $user->id) $disabled = true;
                                         }
+                                        foreach ($appointment->holders as $student) {
+                                            if($student->id == $user->id) $disabled = true;
+                                        }
                                     @endphp
                                     @csrf
                                     <button type="submit" <?=($disabled?'disabled':''); ?>>Lefoglalom</button>
@@ -93,7 +90,7 @@
 
     <script>
         $(document).ready(function () {
-          $('#userList').DataTable({"language": {"url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/hu.json"}});
+          $('#appointmentList').DataTable({"language": {"url": "//cdn.datatables.net/plug-ins/1.13.1/i18n/hu.json"}});
           $('.dataTables_length').addClass('bs-select');
         });
     </script>

@@ -68,7 +68,7 @@ class AppointmentController extends Controller
 
     public function myAppointments()
     {
-        return View::make('my-appointments-list', ['appointments' => $this->appointmentService->myAppointments()]);
+        return View::make('my-appointments-list', ['appointments' => $this->appointmentService->myAppointments(), 'user' => auth()->user()]);
     }
 
     public function delete(Appointment $appointment)
