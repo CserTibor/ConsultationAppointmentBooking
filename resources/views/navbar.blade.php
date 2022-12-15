@@ -21,7 +21,7 @@
                                     {{ auth()->user()->name }}
                                   </a>
                                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item text-dark" href="{{ url('/user/me') }}">Profil</a></li>
+                                    <li><a class="dropdown-item text-dark" href="{{ url('/users/me') }}">Profil</a></li>
                                     <li><a class="dropdown-item text-dark" href="{{ url('/logout') }}">Kijelentkezés</a></li>
                                   </ul>
                                 
