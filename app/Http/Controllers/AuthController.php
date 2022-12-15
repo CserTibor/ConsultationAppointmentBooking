@@ -20,7 +20,7 @@ class AuthController extends Controller
             return View::make('login');
         }
 
-        return View::make('user-profile', ['user' => auth()->user()]);
+        return redirect('/users/appointments');
     }
 
 
