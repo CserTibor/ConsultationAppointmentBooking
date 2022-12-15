@@ -17,14 +17,6 @@
             
             <div class="container">
 
-                @php
-
-                    if(count($users)==0) {
-                        echo "<p>Nincsenek megjeleníthető felhasználók.</p>";
-                    }
-
-                @endphp
-
                 <table class="table table-striped" id="userList">
                   <thead>
                     <tr>
