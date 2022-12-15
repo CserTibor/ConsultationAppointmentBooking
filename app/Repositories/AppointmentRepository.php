@@ -57,7 +57,7 @@ class AppointmentRepository
      */
     public function queryWhereHolder(Builder $query, int $userId): Builder
     {
-        $query->whereHas('holders', function ($query) use ($userId) {
+        return $query->whereHas('holders', function ($query) use ($userId) {
             $query->where('holder_id', '=', $userId);
         });
     }
