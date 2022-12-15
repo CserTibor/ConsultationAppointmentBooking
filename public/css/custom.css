@@ -35,9 +35,16 @@ button {
     border: 0;
 }
 
+button:disabled {
+    cursor: not-allowed;
+    pointer-events: all !important;
+    background:#aaa;
+}
+
 .myButton:hover {
     background:#2288c6;
 }
+
 .valign-middle {
     vertical-align:middle;
   }
