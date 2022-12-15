@@ -43,7 +43,7 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        return View::make('appointments-list', ['appointments' => $this->appointmentService->list()]);
+        return View::make('appointments-list', ['appointments' => $this->appointmentService->list(), 'user' => auth()->user()]);
     }
 
 

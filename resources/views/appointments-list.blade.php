@@ -17,7 +17,6 @@
 
                 <a href="appointments/create">Időpont kiírása</a>
 
-
                 @php
 
                     if(count($appointments)==0) {
@@ -71,8 +70,14 @@
                             </td>
                             <td>
                                 <form action="/appointments/{{$appointment->id}}/seize" method="POST">
+                                    @php
+                                        $disabled = false;
+                                        foreach ($appointment->publishers as $pub) {
+                                            if($pub->id == $user->id) $disabled = true;
+                                        }
+                                    @endphp
                                     @csrf
-                                    <button type="submit">Lefoglalom</button>
+                                    <button type="submit" <?=($disabled?'disabled':''); ?>>Lefoglalom</button>
                                 </form>
                             </td>
                         </tr>                    
