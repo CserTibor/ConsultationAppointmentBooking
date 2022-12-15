@@ -20,7 +20,7 @@
                 @php
 
                     if(count($users)==0) {
-                        echo "Nincsenek megjeleníthető felhasználók.";
+                        echo "<p>Nincsenek megjeleníthető felhasználók.</p>";
                     }
 
                 @endphp
